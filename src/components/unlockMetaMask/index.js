@@ -14,7 +14,7 @@ const UnlockMetaMask = () => (
     <Container fluid>
       <Row className="py-4 justify-content-center">
         <Col xs="8" sm="6" md="4" lg="4">
-          <Card>
+          <Card className="shadow-sm">
             <CardBody>
               <CardTitle className="text-center">
                 Please unlock MetaMask

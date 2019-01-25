@@ -44,12 +44,17 @@ class Header extends Component {
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink exact to="/" className="nav-link" activeClassName="active">
-                  My certificates
+                  Dashboard
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink exact to="/marketplace" className="nav-link" activeClassName="active">
+                  Marketplace
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink exact to="/new" className="nav-link" activeClassName="active">
-                  Create new certificate
+                  New certificate
                 </NavLink>
               </NavItem>
             </Nav>

@@ -30,7 +30,7 @@ class Dashboard extends Component {
     return (
       <div>
         <Container>
-          <Row className="py-2 justify-content-center">
+          <Row className="py-4 justify-content-center">
             <Col xs="12" sm="8" lg="8">
               <GetUserCertificates address={address} />
             </Col>

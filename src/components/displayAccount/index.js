@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import Web3 from 'web3';
 import {
   Card,
-  CardHeader,
   CardBody,
   Button,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input,
+  Row,
+  Col,
 } from 'reactstrap';
 
 import TokenContract from '../../common/contracts/tokenContract';
@@ -74,21 +79,44 @@ class DisplayAccount extends Component {
 
     return (
       <div>
-        <Card>
+        <p className="h5 mb-3">
+          Your wallet
+        </p>
+        <Card className="shadow-sm">
           <CardBody>
-            <ul>
-              <li>
-                Your address is:
-                {address}
-              </li>
-              <li>
-                Your balance is:
-                {Web3.utils.fromWei(balance.toString())} tokens
-              </li>
-            </ul>
-            <Button color="primary" onClick={this.claimFreeTokens}>
-              Claim free tokens
-            </Button>
+            <Row className="mb-3">
+              <Col className="text-center">
+                <p>
+                  Your balance
+                </p>
+                <h3>
+                  {Web3.utils.fromWei(balance.toString())}
+                </h3>
+                <p className="mb-0 font-weight-bold">
+                  HERC
+                </p>
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col className="text-center">
+                <p>
+                  Your address
+                </p>
+                <InputGroup>
+                  <InputGroupAddon addonType="append">
+                    <Input value={address} readOnly />
+                    <Button>Copy</Button>
+                  </InputGroupAddon>
+                </InputGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Button color="primary" size="sm" onClick={this.claimFreeTokens} block>
+                  Claim free tokens
+                </Button>
+              </Col>
+            </Row>
           </CardBody>
         </Card>
       </div>
