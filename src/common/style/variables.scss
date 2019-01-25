@@ -1,9 +1,15 @@
-$C_dark: #151515;
-$C_lightGray: #f6f7f8;
+/* Bootstrap colors */
+$primary: #3147FF;
 
+/* Custom colors */
+$C_dark: #040404;
+$C_lightGray: #F4F8FB;
+
+
+/* Custom theme */
 $body-color: $C_dark;
 $body-bg: $C_lightGray;
+$gray-800: $C_dark;
 
 $enable-shadows: true;
-
 $card-border-width: 0;

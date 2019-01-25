@@ -45,8 +45,6 @@ class DisplayAccount extends Component {
         this.setState({
           balance,
         });
-
-        console.log(`Balance is ${balance}`);
       })
       .catch((err) => {
         console.log(err);
@@ -102,12 +100,7 @@ class DisplayAccount extends Component {
                 <p>
                   Your address
                 </p>
-                <InputGroup>
-                  <InputGroupAddon addonType="append">
-                    <Input value={address} readOnly />
-                    <Button>Copy</Button>
-                  </InputGroupAddon>
-                </InputGroup>
+                <Input value={address} className="address-input" readOnly />
               </Col>
             </Row>
             <Row>

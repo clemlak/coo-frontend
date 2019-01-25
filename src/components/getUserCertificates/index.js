@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import {
   Row,
   Col,
+  CardDeck,
 } from 'reactstrap';
 
 import CooContract from '../../common/contracts/cooContract';
@@ -61,6 +62,7 @@ class GetUserCertificates extends Component {
   displayCertificates = () => {
     const {
       certificates,
+      address,
     } = this.state;
 
     const cards = [];
@@ -69,6 +71,7 @@ class GetUserCertificates extends Component {
       cards.push(
         <CertificatePreview
           key={i}
+          address={address}
           certificateId={i}
         />,
       );
@@ -96,8 +99,9 @@ class GetUserCertificates extends Component {
             </NavLink>
           </Col>
         </Row>
-
-        {this.displayCertificates()}
+        <CardDeck>
+          {this.displayCertificates()}
+        </CardDeck>
       </div>
     );
   }
