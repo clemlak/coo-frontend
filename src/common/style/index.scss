@@ -1,0 +1,11 @@
+@import './variables.scss';
+@import '../fonts/InterUI/inter-ui.css';
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+
+body {
+  font-family: 'Inter UI';
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 800;
+}
