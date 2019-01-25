@@ -10,7 +10,7 @@ import {
   CardBody,
 } from 'reactstrap';
 
-import CooContract from '../../common/cooContract';
+import CooContract from '../../common/contracts/cooContract';
 
 class GetUserCertificates extends Component {
   constructor(props) {

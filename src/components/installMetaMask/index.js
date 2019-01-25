@@ -17,10 +17,11 @@ const InstallMetaMask = () => (
           <Card>
             <CardBody>
               <CardTitle className="text-center">
-                Please install MetaMask
+                Cannot find MetaMask
               </CardTitle>
               <CardText>
-                You need to have MetaMask installed in your browser to continue.
+                We were unable to find MetaMask on your computer. If you don&apos;t have MetaMask on your computer, please install it.
+                If you already have MetaMask, click on the MetaMask icon and grant us access to your account.
               </CardText>
             </CardBody>
           </Card>

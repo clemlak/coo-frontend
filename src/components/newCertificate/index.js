@@ -15,7 +15,7 @@ import {
   Col,
 } from 'reactstrap';
 
-import CooContract from '../../common/cooContract';
+import CooContract from '../../common/contracts/cooContract';
 
 class NewCertificate extends Component {
   constructor(props) {

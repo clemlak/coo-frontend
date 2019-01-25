@@ -13,7 +13,7 @@ import {
   Col,
 } from 'reactstrap';
 
-import CooContract from '../../common/cooContract';
+import CooContract from '../../common/contracts/cooContract';
 
 import TransferCertificate from '../transferCertificate';
 import AddData from '../addData';

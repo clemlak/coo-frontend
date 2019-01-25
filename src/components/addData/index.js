@@ -9,7 +9,7 @@ import {
   Button,
 } from 'reactstrap';
 
-import CooContract from '../../common/cooContract';
+import CooContract from '../../common/contracts/cooContract';
 
 class AddData extends Component {
   constructor(props) {

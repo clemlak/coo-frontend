@@ -6,17 +6,10 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import {
-  Container,
-  Row,
-  Col,
-} from 'reactstrap';
-
-import Home from '../home';
-import Navbar from '../navbar';
+import Header from '../header';
+import Dashboard from '../dashboard';
 import NewCertificate from '../newCertificate';
 import DisplayCertificate from '../displayCertificate';
-import GetUserCertificates from '../getUserCertificates';
 
 class App extends Component {
   constructor(props) {
@@ -39,22 +32,12 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Container>
-            <Row className="py-2 justify-content-center">
-              <Col xs="12" sm="10" lg="8">
-                <Navbar />
-              </Col>
-            </Row>
-            <Row className="py-2 justify-content-center">
-              <Col xs="12" sm="10" lg="8">
-                <Switch>
-                  <Route exact path="/" render={() => (<GetUserCertificates address={address} />)} />
-                  <Route exact path="/new" render={() => (<NewCertificate address={address} />)} />
-                  <Route path="/certificate/:certificateId" render={props => (<DisplayCertificate {...props} address={address} />)} />
-                </Switch>
-              </Col>
-            </Row>
-          </Container>
+          <Header />
+          <Switch>
+            <Route exact path="/" render={() => (<Dashboard address={address} />)} />
+            <Route exact path="/new" render={() => (<NewCertificate address={address} />)} />
+            <Route path="/certificate/:certificateId" render={props => (<DisplayCertificate {...props} address={address} />)} />
+          </Switch>
         </div>
       </Router>
     );
