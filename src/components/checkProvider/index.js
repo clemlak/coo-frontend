@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 
+import WrongNetwork from '../wrongNetwork';
+import UnlockMetaMask from '../unlockMetaMask';
+import InstallMetaMask from '../installMetaMask';
+import UnlockAccount from '../unlockAccount';
+
 import App from '../app';
 
 class CheckProvider extends Component {
@@ -114,19 +119,19 @@ class CheckProvider extends Component {
     } = this.state;
 
     if (isMetaMaskInstalled === false) {
-      return <p>Please install MetaMask</p>;
+      return <InstallMetaMask />;
     }
 
     if (isMetaMaskUnlocked === false) {
-      return <p>Please unlock MetaMask</p>;
+      return <UnlockMetaMask />;
     }
 
     if (networkId !== this.networkId) {
-      return <p>Please change network</p>;
+      return <WrongNetwork />;
     }
 
     if (address === '') {
-      return <p>Please unlock your account</p>;
+      return <UnlockAccount />;
     }
 
     return <App address={address} />;
