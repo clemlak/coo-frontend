@@ -15,7 +15,7 @@ import {
   Col,
 } from 'reactstrap';
 
-import Contract from '../../common/contract';
+import CooContract from '../../common/cooContract';
 
 class NewCertificate extends Component {
   constructor(props) {
@@ -73,7 +73,7 @@ class NewCertificate extends Component {
       anotherEncryptionKey,
     };
 
-    Contract.methods.createCertificate(certificate).send({
+    CooContract.methods.createCertificate(certificate).send({
       from: address,
     })
       .on('transactionHash', (transactionHash) => {

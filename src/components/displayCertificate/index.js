@@ -13,7 +13,7 @@ import {
   Col,
 } from 'reactstrap';
 
-import Contract from '../../common/contract';
+import CooContract from '../../common/cooContract';
 
 import TransferCertificate from '../transferCertificate';
 import AddData from '../addData';
@@ -60,7 +60,7 @@ class DisplayCertificate extends Component {
       address,
     } = this.state;
 
-    Contract.methods.getCertificate(certificateId).call({
+    CooContract.methods.getCertificate(certificateId).call({
       from: address,
     })
       .then((certificate) => {
@@ -84,7 +84,7 @@ class DisplayCertificate extends Component {
           anotherEncryptionKey,
         });
 
-        return Contract.methods.getCertificateData(certificateId).call({
+        return CooContract.methods.getCertificateData(certificateId).call({
           from: address,
         });
       })

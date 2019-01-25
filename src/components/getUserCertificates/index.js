@@ -10,7 +10,7 @@ import {
   CardBody,
 } from 'reactstrap';
 
-import Contract from '../../common/contract';
+import CooContract from '../../common/cooContract';
 
 class GetUserCertificates extends Component {
   constructor(props) {
@@ -37,11 +37,11 @@ class GetUserCertificates extends Component {
 
     const certificates = [];
 
-    Contract.methods.balanceOf(address).call()
+    CooContract.methods.balanceOf(address).call()
       .then((balance) => {
         if (parseInt(balance, 10) > 0) {
           for (let i = 0; i < parseInt(balance, 10); i += 1) {
-            Contract.methods.tokenOfOwnerByIndex(address, i).call()
+            CooContract.methods.tokenOfOwnerByIndex(address, i).call()
               .then((certificateId) => {
                 certificates.push(certificateId);
 

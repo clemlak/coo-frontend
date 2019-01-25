@@ -9,7 +9,7 @@ import {
   Button,
 } from 'reactstrap';
 
-import Contract from '../../common/contract';
+import CooContract from '../../common/cooContract';
 
 class TransferCertificate extends Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class TransferCertificate extends Component {
       recipient,
     } = this.state;
 
-    Contract.methods.transferFrom(address, recipient, certificateId).send({
+    CooContract.methods.transferFrom(address, recipient, certificateId).send({
       from: address,
     })
       .on('transactionHash', (transactionHash) => {
