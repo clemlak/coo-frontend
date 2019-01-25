@@ -9,7 +9,7 @@ import {
   Button,
 } from 'reactstrap';
 
-import Contract from '../../common/contract';
+import CooContract from '../../common/cooContract';
 
 class AddData extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class AddData extends Component {
 
     console.log(data);
 
-    Contract.methods.updateCertificateData(certificateId, data).send({
+    CooContract.methods.updateCertificateData(certificateId, data).send({
       from: address,
     })
       .on('transactionHash', (transactionHash) => {
