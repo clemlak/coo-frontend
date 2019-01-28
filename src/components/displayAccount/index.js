@@ -5,9 +5,6 @@ import {
   Card,
   CardBody,
   Button,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
   Input,
   Row,
   Col,
@@ -84,10 +81,10 @@ class DisplayAccount extends Component {
           <CardBody>
             <Row className="mb-3">
               <Col className="text-center">
-                <p>
+                <p className="mb-0">
                   Your balance
                 </p>
-                <h3>
+                <h3 className="mb-0">
                   {Web3.utils.fromWei(balance.toString())}
                 </h3>
                 <p className="mb-0 font-weight-bold">
@@ -97,7 +94,7 @@ class DisplayAccount extends Component {
             </Row>
             <Row className="mb-3">
               <Col className="text-center">
-                <p>
+                <p className="mb-0">
                   Your address
                 </p>
                 <Input value={address} className="address-input" readOnly />

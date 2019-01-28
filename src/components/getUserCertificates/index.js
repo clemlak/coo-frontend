@@ -72,7 +72,7 @@ class GetUserCertificates extends Component {
         <CertificatePreview
           key={i}
           address={address}
-          certificateId={i}
+          certificateId={certificates[i]}
         />,
       );
     }
@@ -93,7 +93,7 @@ class GetUserCertificates extends Component {
               {`You have ${certificates.length} certificates`}
             </p>
           </Col>
-          <Col>
+          <Col className="text-right">
             <NavLink exact to="/new" className="nav-link" activeClassName="active">
               New certificate
             </NavLink>

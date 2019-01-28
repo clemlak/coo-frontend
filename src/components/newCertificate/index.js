@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
+  Container,
+  Row,
+  Col,
   Card,
   CardHeader,
   CardBody,
@@ -11,8 +14,6 @@ import {
   FormGroup,
   Label,
   Input,
-  Row,
-  Col,
 } from 'reactstrap';
 
 import CooContract from '../../common/contracts/cooContract';
@@ -83,6 +84,9 @@ class NewCertificate extends Component {
         console.log(confirmation);
         console.log('Transaction is confirmed');
       })
+      .on('receipt', (receipt) => {
+        console.log(receipt);
+      })
       .on('error', (err) => {
         console.log(err.message);
       });
@@ -100,113 +104,119 @@ class NewCertificate extends Component {
 
     return (
       <div>
-        <Card>
-          <CardHeader className="font-weight-bold">
-            Create a new certificate
-          </CardHeader>
-          <CardBody>
-            <Form>
-              <Row>
-                <Col>
-                  <FormGroup>
-                    <Label for="assetIdInput" className="font-weight-bold text-muted">
-                      Asset id
-                    </Label>
-                    <Input
-                      type="number"
-                      name="assetIdInput"
-                      id="assetIdInput"
-                      placeholder="1234"
-                      onChange={this.handleUpdate}
-                      value={assetId}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="nameInput" className="font-weight-bold text-muted">
-                      Asset name
-                    </Label>
-                    <Input
-                      type="text"
-                      name="nameInput"
-                      id="nameInput"
-                      placeholder="An amazing asset"
-                      onChange={this.handleUpdate}
-                      value={name}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="labelInput" className="font-weight-bold text-muted">
-                      Asset label
-                    </Label>
-                    <Input
-                      type="text"
-                      name="labelInput"
-                      id="labelInput"
-                      placeholder="AAS"
-                      onChange={this.handleUpdate}
-                      value={label}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col>
-                  <FormGroup>
-                    <Label for="priceInput" className="font-weight-bold text-muted">
-                      Asset price
-                    </Label>
-                    <Input
-                      type="number"
-                      name="priceInput"
-                      id="priceInput"
-                      placeholder="200"
-                      onChange={this.handleUpdate}
-                      value={price}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="factomEntryHashInput" className="font-weight-bold text-muted">
-                      Asset Factom entry hash
-                    </Label>
-                    <Input
-                      type="text"
-                      name="factomEntryHashInput"
-                      id="factomEntryHashInput"
-                      placeholder="ABCDE"
-                      onChange={this.handleUpdate}
-                      value={factomEntryHash}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="anotherEncryptionKeyInput" className="font-weight-bold text-muted">
-                      Asset another encryption key
-                    </Label>
-                    <Input
-                      type="text"
-                      name="anotherEncryptionKeyInput"
-                      id="anotherEncryptionKeyInput"
-                      placeholder="ABCDE"
-                      onChange={this.handleUpdate}
-                      value={anotherEncryptionKey}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-            </Form>
-            <Row>
-              <Col>
-                <CardText>
-                  <small className="text-muted">
-                    Note: More data can be added later.
-                  </small>
-                </CardText>
-              </Col>
-            </Row>
-          </CardBody>
-          <CardFooter>
-            <Button color="primary" onClick={this.createCertificate} block>
-              Create certificate
-            </Button>
-          </CardFooter>
-        </Card>
+        <Container>
+          <Row className="py-4 justify-content-center">
+            <Col xs="12" sm="8" lg="8">
+              <p className="h5 mb-3">
+                Create a new certificate
+              </p>
+              <Card className="shadow-sm">
+                <CardBody>
+                  <Form>
+                    <Row>
+                      <Col>
+                        <FormGroup>
+                          <Label for="assetIdInput">
+                            <small className="font-weight-bold">Asset id</small>
+                          </Label>
+                          <Input
+                            type="number"
+                            name="assetIdInput"
+                            id="assetIdInput"
+                            placeholder="1234"
+                            onChange={this.handleUpdate}
+                            value={assetId}
+                          />
+                        </FormGroup>
+                        <FormGroup>
+                          <Label for="nameInput">
+                            <small className="font-weight-bold">Asset name</small>
+                          </Label>
+                          <Input
+                            type="text"
+                            name="nameInput"
+                            id="nameInput"
+                            placeholder="An amazing asset"
+                            onChange={this.handleUpdate}
+                            value={name}
+                          />
+                        </FormGroup>
+                        <FormGroup>
+                          <Label for="labelInput">
+                            <small className="font-weight-bold">Asset label</small>
+                          </Label>
+                          <Input
+                            type="text"
+                            name="labelInput"
+                            id="labelInput"
+                            placeholder="AAS"
+                            onChange={this.handleUpdate}
+                            value={label}
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col>
+                        <FormGroup>
+                          <Label for="priceInput">
+                            <small className="font-weight-bold">Asset price</small>
+                          </Label>
+                          <Input
+                            type="number"
+                            name="priceInput"
+                            id="priceInput"
+                            placeholder="200"
+                            onChange={this.handleUpdate}
+                            value={price}
+                          />
+                        </FormGroup>
+                        <FormGroup>
+                          <Label for="factomEntryHashInput">
+                            <small className="font-weight-bold">Asset Factom entry hash</small>
+                          </Label>
+                          <Input
+                            type="text"
+                            name="factomEntryHashInput"
+                            id="factomEntryHashInput"
+                            placeholder="ABCDE"
+                            onChange={this.handleUpdate}
+                            value={factomEntryHash}
+                          />
+                        </FormGroup>
+                        <FormGroup>
+                          <Label for="anotherEncryptionKeyInput">
+                            <small className="font-weight-bold">Asset another encryption key</small>
+                          </Label>
+                          <Input
+                            type="text"
+                            name="anotherEncryptionKeyInput"
+                            id="anotherEncryptionKeyInput"
+                            placeholder="ABCDE"
+                            onChange={this.handleUpdate}
+                            value={anotherEncryptionKey}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  </Form>
+                  <Row>
+                    <Col>
+                      <CardText>
+                        <small className="text-muted">
+                          Note: More data can be added later.
+                        </small>
+                      </CardText>
+                    </Col>
+                  </Row>
+                </CardBody>
+                <CardFooter>
+                  <Button color="primary" onClick={this.createCertificate} block>
+                    Create certificate
+                  </Button>
+                </CardFooter>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

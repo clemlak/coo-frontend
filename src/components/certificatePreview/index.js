@@ -82,16 +82,21 @@ class CertificatePreview extends Component {
     return (
       <div>
         <Card className="shadow-sm">
-          <CardImg top width="100%" src={CertificateIcon} alt="certificateIcon" />
           <CardBody>
+            <Row className="align-items-center py-3">
+              <Col>
+                <div className="certificate-logo-placeholder rounded align-items-center" />
+              </Col>
+            </Row>
             <Row>
               <Col>
-                {`Certificate ${certificateId}`}
-              </Col>
-              <Col className="text-right">
-                <small>
-                  {`Added on ${addedOn.toLocaleDateString('en-US', options)}`}
-                </small>
+                <p className="font-weight-bold mb-0">
+                  {name}
+                  <br />
+                  <small>
+                    {`Added on ${addedOn.toLocaleDateString('en-US', options)}`}
+                  </small>
+                </p>
               </Col>
             </Row>
 
