@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import {
   Card,
   CardBody,
-  CardImg,
   Row,
   Col,
 } from 'reactstrap';
 
 import CooContract from '../../common/contracts/cooContract';
-import CertificateIcon from '../../common/img/certificate.png';
 
 class CertificatePreview extends Component {
   constructor(props) {
@@ -109,7 +107,7 @@ class CertificatePreview extends Component {
 
 CertificatePreview.propTypes = {
   address: PropTypes.string.isRequired,
-  certificateId: PropTypes.number.isRequired,
+  certificateId: PropTypes.string.isRequired,
 };
 
 export default CertificatePreview;
