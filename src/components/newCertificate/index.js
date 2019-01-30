@@ -5,7 +5,6 @@ import {
   Row,
   Col,
   Card,
-  CardHeader,
   CardBody,
   CardText,
   CardFooter,
@@ -34,6 +33,8 @@ class NewCertificate extends Component {
       price: '',
       factomEntryHash: '',
       anotherEncryptionKey: '',
+      buttonText: 'Create certificate',
+      txState: 'null',
     };
   }
 
@@ -74,21 +75,31 @@ class NewCertificate extends Component {
       anotherEncryptionKey,
     };
 
+    this.setState({
+      buttonText: 'Waiting approval in MetaMask...',
+      txState: 'waitingApproval',
+    });
+
     CooContract.methods.createCertificate(certificate).send({
       from: address,
     })
-      .on('transactionHash', (transactionHash) => {
-        console.log(`Transaction ${transactionHash} is pending`);
+      .on('transactionHash', () => {
+        this.setState({
+          buttonText: 'Transaction is pending...',
+          txState: 'pending',
+        });
       })
-      .on('confirmation', (confirmation) => {
-        console.log(confirmation);
-        console.log('Transaction is confirmed');
-      })
-      .on('receipt', (receipt) => {
-        console.log(receipt);
+      .on('confirmation', () => {
+        this.setState({
+          buttonText: 'Transaction is confirmed!',
+          txState: 'confirmed',
+        });
       })
       .on('error', (err) => {
-        console.log(err.message);
+        this.setState({
+          buttonText: err.message,
+          txState: 'error',
+        });
       });
   }
 
@@ -100,6 +111,8 @@ class NewCertificate extends Component {
       price,
       factomEntryHash,
       anotherEncryptionKey,
+      buttonText,
+      txState,
     } = this.state;
 
     return (
@@ -209,8 +222,13 @@ class NewCertificate extends Component {
                   </Row>
                 </CardBody>
                 <CardFooter>
-                  <Button color="primary" onClick={this.createCertificate} block>
-                    Create certificate
+                  <Button
+                    color="primary"
+                    onClick={this.createCertificate}
+                    disabled={txState !== 'null' && true}
+                    block
+                  >
+                    {buttonText}
                   </Button>
                 </CardFooter>
               </Card>
