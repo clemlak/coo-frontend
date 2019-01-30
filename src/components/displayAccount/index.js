@@ -23,6 +23,8 @@ class DisplayAccount extends Component {
     this.state = {
       address,
       balance: 0,
+      buttonText: 'Claim free tokens',
+      txState: 'null',
     };
   }
 
@@ -53,16 +55,33 @@ class DisplayAccount extends Component {
       address,
     } = this.state;
 
+    this.setState({
+      buttonText: 'Waiting approval in MetaMask...',
+      txState: 'waitingApproval',
+    });
+
     TokenContract.methods.claimFreeTokens(
       Web3.utils.toWei('10000'),
     ).send({
       from: address,
     })
-      .then((receipt) => {
-        console.log(receipt);
+      .on('transactionHash', () => {
+        this.setState({
+          buttonText: 'Transaction is pending...',
+          txState: 'pending',
+        });
       })
-      .catch((err) => {
-        console.log(err);
+      .on('confirmation', () => {
+        this.setState({
+          buttonText: 'Transaction is confirmed!',
+          txState: 'confirmed',
+        });
+      })
+      .on('error', (err) => {
+        this.setState({
+          buttonText: err.message,
+          txState: 'error',
+        });
       });
   }
 
@@ -70,6 +89,8 @@ class DisplayAccount extends Component {
     const {
       address,
       balance,
+      buttonText,
+      txState,
     } = this.state;
 
     return (
@@ -102,8 +123,14 @@ class DisplayAccount extends Component {
             </Row>
             <Row>
               <Col>
-                <Button color="primary" size="sm" onClick={this.claimFreeTokens} block>
-                  Claim free tokens
+                <Button
+                  color="primary"
+                  size="sm"
+                  onClick={this.claimFreeTokens}
+                  disabled={txState !== 'null' && true}
+                  block
+                >
+                  {buttonText}
                 </Button>
               </Col>
             </Row>
