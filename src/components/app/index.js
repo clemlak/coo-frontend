@@ -10,6 +10,7 @@ import Header from '../header';
 import Dashboard from '../dashboard';
 import NewCertificate from '../newCertificate';
 import DisplayCertificate from '../displayCertificate';
+import Marketplace from '../marketplace';
 
 class App extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={() => (<Dashboard address={address} />)} />
             <Route exact path="/new" render={() => (<NewCertificate address={address} />)} />
+            <Route exact path="/marketplace" render={() => (<Marketplace address={address} />)} />
             <Route path="/certificate/:certificateId" render={props => (<DisplayCertificate {...props} address={address} />)} />
           </Switch>
         </div>
