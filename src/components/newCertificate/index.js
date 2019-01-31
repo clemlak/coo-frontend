@@ -136,7 +136,7 @@ class NewCertificate extends Component {
                             type="number"
                             name="assetIdInput"
                             id="assetIdInput"
-                            placeholder="1234"
+                            placeholder="423945"
                             onChange={this.handleUpdate}
                             value={assetId}
                           />
@@ -149,7 +149,7 @@ class NewCertificate extends Component {
                             type="text"
                             name="nameInput"
                             id="nameInput"
-                            placeholder="An amazing asset"
+                            placeholder="iPhone XS"
                             onChange={this.handleUpdate}
                             value={name}
                           />
@@ -162,7 +162,7 @@ class NewCertificate extends Component {
                             type="text"
                             name="labelInput"
                             id="labelInput"
-                            placeholder="AAS"
+                            placeholder="iphonexs2018"
                             onChange={this.handleUpdate}
                             value={label}
                           />
@@ -177,7 +177,7 @@ class NewCertificate extends Component {
                             type="number"
                             name="priceInput"
                             id="priceInput"
-                            placeholder="200"
+                            placeholder="890"
                             onChange={this.handleUpdate}
                             value={price}
                           />
@@ -190,7 +190,7 @@ class NewCertificate extends Component {
                             type="text"
                             name="factomEntryHashInput"
                             id="factomEntryHashInput"
-                            placeholder="ABCDE"
+                            placeholder="5e1f4c3df3d498eef6ca2c8a3bbf0c7d"
                             onChange={this.handleUpdate}
                             value={factomEntryHash}
                           />
@@ -203,7 +203,7 @@ class NewCertificate extends Component {
                             type="text"
                             name="anotherEncryptionKeyInput"
                             id="anotherEncryptionKeyInput"
-                            placeholder="ABCDE"
+                            placeholder="533d9abfa06572d1f2879ced91d37fce"
                             onChange={this.handleUpdate}
                             value={anotherEncryptionKey}
                           />

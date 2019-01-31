@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
+  NavLink,
+} from 'react-router-dom';
+import {
   Card,
   CardBody,
   Row,
   Col,
 } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 
 import CooContract from '../../common/contracts/cooContract';
 
@@ -81,13 +86,13 @@ class CertificatePreview extends Component {
       <div>
         <Card className="shadow-sm">
           <CardBody>
-            <Row className="align-items-center py-3">
+            <Row className="align-items-top py-3">
               <Col>
                 <div className="certificate-logo-placeholder rounded align-items-center" />
               </Col>
             </Row>
             <Row>
-              <Col>
+              <Col md="9">
                 <p className="font-weight-bold mb-0">
                   {name}
                   <br />
@@ -96,8 +101,12 @@ class CertificatePreview extends Component {
                   </small>
                 </p>
               </Col>
+              <Col md="3" className="text-right">
+                <NavLink exact to={`/certificate/${certificateId}`} className="nav-link">
+                  <FontAwesomeIcon icon={faEllipsisH} />
+                </NavLink>
+              </Col>
             </Row>
-
           </CardBody>
         </Card>
       </div>
