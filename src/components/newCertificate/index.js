@@ -117,121 +117,126 @@ class NewCertificate extends Component {
 
     return (
       <div>
-        <Container>
+        <Container fluid>
           <Row className="py-4 justify-content-center">
             <Col xs="12" sm="8" lg="8">
-              <p className="h5 mb-3">
-                Create a new certificate
-              </p>
-              <Card className="shadow-sm">
-                <CardBody>
-                  <Form>
-                    <Row>
-                      <Col>
-                        <FormGroup>
-                          <Label for="assetIdInput">
-                            <small className="font-weight-bold">Asset id</small>
-                          </Label>
-                          <Input
-                            type="number"
-                            name="assetIdInput"
-                            id="assetIdInput"
-                            placeholder="423945"
-                            onChange={this.handleUpdate}
-                            value={assetId}
-                          />
-                        </FormGroup>
-                        <FormGroup>
-                          <Label for="nameInput">
-                            <small className="font-weight-bold">Asset name</small>
-                          </Label>
-                          <Input
-                            type="text"
-                            name="nameInput"
-                            id="nameInput"
-                            placeholder="iPhone XS"
-                            onChange={this.handleUpdate}
-                            value={name}
-                          />
-                        </FormGroup>
-                        <FormGroup>
-                          <Label for="labelInput">
-                            <small className="font-weight-bold">Asset label</small>
-                          </Label>
-                          <Input
-                            type="text"
-                            name="labelInput"
-                            id="labelInput"
-                            placeholder="iphonexs2018"
-                            onChange={this.handleUpdate}
-                            value={label}
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col>
-                        <FormGroup>
-                          <Label for="priceInput">
-                            <small className="font-weight-bold">Asset price</small>
-                          </Label>
-                          <Input
-                            type="number"
-                            name="priceInput"
-                            id="priceInput"
-                            placeholder="890"
-                            onChange={this.handleUpdate}
-                            value={price}
-                          />
-                        </FormGroup>
-                        <FormGroup>
-                          <Label for="factomEntryHashInput">
-                            <small className="font-weight-bold">Asset Factom entry hash</small>
-                          </Label>
-                          <Input
-                            type="text"
-                            name="factomEntryHashInput"
-                            id="factomEntryHashInput"
-                            placeholder="5e1f4c3df3d498eef6ca2c8a3bbf0c7d"
-                            onChange={this.handleUpdate}
-                            value={factomEntryHash}
-                          />
-                        </FormGroup>
-                        <FormGroup>
-                          <Label for="anotherEncryptionKeyInput">
-                            <small className="font-weight-bold">Asset another encryption key</small>
-                          </Label>
-                          <Input
-                            type="text"
-                            name="anotherEncryptionKeyInput"
-                            id="anotherEncryptionKeyInput"
-                            placeholder="533d9abfa06572d1f2879ced91d37fce"
-                            onChange={this.handleUpdate}
-                            value={anotherEncryptionKey}
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </Form>
-                  <Row>
-                    <Col>
-                      <CardText>
-                        <small className="text-muted">
-                          Note: More data can be added later.
-                        </small>
-                      </CardText>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <Button
-                    color="primary"
-                    onClick={this.createCertificate}
-                    disabled={txState !== 'null' && true}
-                    block
-                  >
-                    {buttonText}
-                  </Button>
-                </CardFooter>
-              </Card>
+              <Form>
+
+                <Row className="py-3 justify-content-around">
+                  <Col md="5">
+                    <FormGroup>
+                      <Label for="assetIdInput">
+                        <small className="font-weight-bold">Asset id</small>
+                      </Label>
+                      <Input
+                        type="number"
+                        name="assetIdInput"
+                        id="assetIdInput"
+                        onChange={this.handleUpdate}
+                        value={assetId}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md="5">
+                    <FormGroup>
+                      <Label for="priceInput">
+                        <small className="font-weight-bold">Asset price</small>
+                      </Label>
+                      <Input
+                        type="number"
+                        name="priceInput"
+                        id="priceInput"
+                        onChange={this.handleUpdate}
+                        value={price}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+
+                <Row className="py-3 justify-content-around">
+                  <Col md="5">
+                    <FormGroup>
+                      <Label for="nameInput">
+                        <small className="font-weight-bold">Asset name</small>
+                      </Label>
+                      <Input
+                        type="text"
+                        name="nameInput"
+                        id="nameInput"
+                        onChange={this.handleUpdate}
+                        value={name}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md="5">
+                    <FormGroup>
+                      <Label for="factomEntryHashInput">
+                        <small className="font-weight-bold">Asset Factom entry hash</small>
+                      </Label>
+                      <Input
+                        type="text"
+                        name="factomEntryHashInput"
+                        id="factomEntryHashInput"
+                        onChange={this.handleUpdate}
+                        value={factomEntryHash}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+
+                <Row className="py-3 justify-content-around">
+                  <Col md="5">
+                    <FormGroup>
+                      <Label for="labelInput">
+                        <small className="font-weight-bold">Asset label</small>
+                      </Label>
+                      <Input
+                        type="text"
+                        name="labelInput"
+                        id="labelInput"
+                        onChange={this.handleUpdate}
+                        value={label}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md="5">
+                    <FormGroup>
+                      <Label for="anotherEncryptionKeyInput">
+                        <small className="font-weight-bold">Asset another encryption key</small>
+                      </Label>
+                      <Input
+                        type="text"
+                        name="anotherEncryptionKeyInput"
+                        id="anotherEncryptionKeyInput"
+                        onChange={this.handleUpdate}
+                        value={anotherEncryptionKey}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+
+                <Row className="py-1 mt-3 justify-content-center">
+                  <Col md="6" className="text-center">
+                    <Button
+                      color="primary"
+                      onClick={this.createCertificate}
+                      disabled={txState !== 'null' && true}
+                      block
+                    >
+                      {buttonText}
+                    </Button>
+                  </Col>
+                </Row>
+                <Row className="py-1">
+                  <Col className="text-center">
+                    <p className="text-muted">
+                      <small>
+                        Note: More data can be added later.
+                      </small>
+                    </p>
+                  </Col>
+                </Row>
+              </Form>
             </Col>
           </Row>
         </Container>

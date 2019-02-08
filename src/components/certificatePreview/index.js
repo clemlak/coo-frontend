@@ -4,8 +4,6 @@ import {
   NavLink,
 } from 'react-router-dom';
 import {
-  Card,
-  CardBody,
   Row,
   Col,
 } from 'reactstrap';
@@ -25,10 +23,7 @@ class CertificatePreview extends Component {
     this.state = {
       address,
       certificateId,
-      assetId: '',
       name: '',
-      label: '',
-      price: '',
       timestamp: '',
     };
   }
@@ -48,18 +43,12 @@ class CertificatePreview extends Component {
     })
       .then((certificate) => {
         const {
-          assetId,
           name,
-          label,
-          price,
           timestamp,
         } = certificate;
 
         this.setState({
-          assetId,
           name,
-          label,
-          price,
           timestamp,
         });
       })

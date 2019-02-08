@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
+  Row,
+  Col,
   Modal,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
-  FormGroup,
-  Label,
   Input,
   Button,
 } from 'reactstrap';
@@ -101,45 +99,63 @@ class TransferCertificate extends Component {
     return (
       <div>
         <Modal isOpen={isOpen} toggle={toggle}>
-          <ModalHeader toggle={toggle}>Transfer certificate</ModalHeader>
           <ModalBody>
-            <p>
-              Please input the address of the recipient.
-            </p>
-            <FormGroup>
-              <Label for="address">
-                <small className="font-weight-bold">
-                  Recipient
-                </small>
-              </Label>
-              <Input
-                type="text"
-                name="address"
-                id="address"
-                placeholder="0x8e966e75dAB5FA5A22ea3FF1F6032851cB22C30D"
-                value={recipient}
-                onChange={this.handleUpdate}
-              />
-            </FormGroup>
-            <p>
-              <small>
-                Warning: This action cannot be canceled!
-              </small>
-            </p>
+
+            <Row className="pb-1">
+              <Col>
+                <p className="lead">
+                  Transfer certificate
+                </p>
+              </Col>
+            </Row>
+
+            <Row className="pb-3">
+              <Col>
+                <p>
+                  Please input the address of the recipient.
+                </p>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <Input
+                  type="text"
+                  name="address"
+                  id="address"
+                  value={recipient}
+                  onChange={this.handleUpdate}
+                />
+              </Col>
+            </Row>
+
+            <Row className="pb-3">
+              <Col>
+                <p>
+                  <small>
+                    Warning: This action cannot be canceled!
+                  </small>
+                </p>
+              </Col>
+            </Row>
+
+            <Row className="py-3">
+              <Col className="text-right">
+                <Button color="secondary" onClick={toggle}>
+                  Close
+                </Button>
+                {' '}
+                <Button
+                  color="primary"
+                  onClick={this.transferCertificate}
+                  disabled={txState !== 'null' && true}
+                >
+                  {buttonText}
+                </Button>
+              </Col>
+            </Row>
+
           </ModalBody>
-          <ModalFooter>
-            <Button color="secondary" onClick={toggle}>
-              Close
-            </Button>
-            {' '}
-            <Button
-              color="primary"
-              onClick={this.transferCertificate}
-              disabled={txState !== 'null' && true}
-            >
-              {buttonText}
-            </Button>
-          </ModalFooter>
         </Modal>
       </div>
     );

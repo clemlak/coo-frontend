@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Card,
-  CardBody,
   ListGroup,
   ListGroupItem,
   Button,
   Container,
   Row,
   Col,
+  Input,
 } from 'reactstrap';
 
 import CooContract from '../../common/contracts/cooContract';
+import CertificateIcon from '../../common/img/certificate.png';
 
 import TransferCertificate from '../transferCertificate';
 import AddData from '../addData';
@@ -41,8 +41,6 @@ class DisplayCertificate extends Component {
       factomEntryHash: '',
       anotherEncryptionKey: '',
       data: [],
-      collapseTransfer: false,
-      collapseAddData: false,
       toggleTransferModal: false,
       toggleAddDataModal: false,
       toggleCreateSaleModal: false,
@@ -195,72 +193,69 @@ class DisplayCertificate extends Component {
           isOpen={toggleCreateSaleModal}
           toggle={this.toggleCreateSaleModal}
         />
-        <Container>
-          <Row className="py-4 justify-content-center">
-            <Col xs="12" sm="8" lg="8">
-              <Row className="align-items-center mb-3">
-                <Col>
-                  <p className="h5 mb-0">
-                    Your certificate
-                  </p>
-                </Col>
-                <Col className="text-right">
-                  <Button color="danger" size="sm" onClick={this.toggleTransferModal}>
-                    Transfer
-                  </Button>
-                  {' '}
-                  <Button color="success" size="sm" onClick={this.toggleCreateSaleModal}>
-                    Sell
-                  </Button>
-                </Col>
-              </Row>
-              <Card className="shadow-sm">
-                <CardBody>
-                  <Row className="align-items-center py-3">
-                    <Col>
-                      <div className="certificate-logo-placeholder rounded align-items-center" />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <p className="font-weight-bold mb-0">
-                        {name}
-                        <br />
-                        <small>
-                          {`Added on ${addedOn.toLocaleDateString('en-US', options)}`}
-                        </small>
-                      </p>
-                    </Col>
-                  </Row>
-                </CardBody>
-              </Card>
+        <Container fluid>
+
+          <Row className="justify-content-center py-4 pb-2">
+            <Col className="text-center" xs="12" sm="8" lg="8">
+              <p className="h5 mb-0">
+                Your certificate
+              </p>
             </Col>
           </Row>
-          <Row className="py-4 justify-content-center">
-            <Col xs="12" sm="8" lg="8">
-              <Row className="align-items-center mb-3">
-                <Col>
-                  <p className="h5 mb-0">
-                    Your data
-                  </p>
-                </Col>
-                <Col className="text-right">
-                  <Button color="primary" size="sm" onClick={this.toggleAddDataModal}>
-                    Edit data
-                  </Button>
-                </Col>
-              </Row>
-              <Card className="shadow-sm">
-                <CardBody>
-                  <Row>
-                    <Col>
-                      {this.displayData()}
-                    </Col>
-                  </Row>
-                </CardBody>
-              </Card>
+
+          <Row className="justify-content-center py-2">
+            <Col className="text-center">
+              <img src={CertificateIcon} alt="Certificate icon" />
             </Col>
           </Row>
+
+          <Row>
+            <Col className="text-center">
+              <p className="font-weight-bold mb-0">
+                {name}
+              </p>
+              <p className="text-highlight">
+                <small>
+                  {`Added on ${addedOn.toLocaleDateString('en-US', options)}`}
+                </small>
+              </p>
+            </Col>
+          </Row>
+
+          <Row className="justify-content-center pt-2">
+            <Col md="3">
+              <p>
+                Your data
+              </p>
+            </Col>
+            <Col md="3" className="text-right">
+              <Button color="success" onClick={this.toggleTransferModal}>
+                Transfer
+              </Button>
+              {' '}
+              <Button color="danger" onClick={this.toggleCreateSaleModal}>
+                Sell
+              </Button>
+            </Col>
+          </Row>
+
+          <Row className="justify-content-center pb-2">
+            <Col md="6">
+              <Input type="textarea" rows="6" />
+            </Col>
+          </Row>
+
+          <Row className="py-1 mt-3 justify-content-center">
+            <Col md="6" className="text-center">
+              <Button
+                color="primary"
+                size="sm"
+              >
+                Edit data
+              </Button>
+            </Col>
+          </Row>
+
         </Container>
       </div>
     );

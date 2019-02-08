@@ -74,13 +74,13 @@ class CreateSale extends Component {
     const now = Math.round(Date.now() / 1000);
     let deadlineUnitMultiplier;
 
-    if (deadlineUnit === 'minute(s)') {
+    if (deadlineUnit === 'Minute(s)') {
       deadlineUnitMultiplier = 60;
-    } else if (deadlineUnit === 'hour(s)') {
+    } else if (deadlineUnit === 'Hour(s)') {
       deadlineUnitMultiplier = 60 * 60;
-    } else if (deadlineUnit === 'day(s)') {
+    } else if (deadlineUnit === 'Day(s)') {
       deadlineUnitMultiplier = 60 * 60 * 24;
-    } else if (deadlineUnit === 'week(s)') {
+    } else if (deadlineUnit === 'Week(s)') {
       deadlineUnitMultiplier = 60 * 60 * 24 * 7;
     }
 
@@ -203,71 +203,77 @@ class CreateSale extends Component {
     return (
       <div>
         <Modal isOpen={isOpen} toggle={toggle}>
-          <ModalHeader toggle={toggle}>Create a new sale</ModalHeader>
           <ModalBody>
-            <p>
-              Please fill in the following form to create a new sale.
-            </p>
-            <FormGroup>
-              <Label for="amount">
-                <small className="font-weight-bold">
-                  Expected price (or starting price for an auction):
-                </small>
-              </Label>
-              <InputGroup>
-                <Input
-                  type="number"
-                  name="price"
-                  id="price"
-                  placeholder="1000"
-                  value={price}
-                  onChange={this.handleUpdate}
-                  className="text-right"
-                />
-                <InputGroupAddon addonType="append">
-                  HERC
-                </InputGroupAddon>
-              </InputGroup>
-            </FormGroup>
-            <Row className="align-items-center">
+
+            <Row>
               <Col>
+                <p className="lead">
+                  Create a new sale
+                </p>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <p>
+                  Please fill in the following form to create a new sale.
+                </p>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <FormGroup>
+                  <Label for="amount">
+                    <small className="font-weight-bold">
+                      Expected price (or starting price for an auction):
+                    </small>
+                  </Label>
+                  <Input
+                    type="number"
+                    name="price"
+                    id="price"
+                    value={price}
+                    onChange={this.handleUpdate}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+
+            <Row className="pb-3 justify-content-center align-item-end">
+              <Col md="5">
                 <Label for="deadline">
                   <small className="font-weight-bold">
                     Expiry date from now:
                   </small>
                 </Label>
-                <Row>
-                  <Col>
-                    <Input
-                      type="number"
-                      name="deadline"
-                      id="deadline"
-                      value={deadline}
-                      placeholder="1000"
-                      onChange={this.handleUpdate}
-                    />
-                  </Col>
-                  <Col>
-                    <FormGroup>
-                      <Input
-                        type="select"
-                        name="deadlineUnit"
-                        id="deadlineUnit"
-                        value={deadlineUnit}
-                        onChange={this.handleUpdate}
-                      >
-                        <option>minute(s)</option>
-                        <option>hour(s)</option>
-                        <option>day(s)</option>
-                        <option>week(s)</option>
-                      </Input>
-                    </FormGroup>
-                  </Col>
-                </Row>
+                <Input
+                  type="number"
+                  name="deadline"
+                  id="deadline"
+                  value={deadline}
+                  onChange={this.handleUpdate}
+                />
+              </Col>
+              <Col md="5" className="align-self-end">
+                <Input
+                  type="select"
+                  name="deadlineUnit"
+                  id="deadlineUnit"
+                  value={deadlineUnit}
+                  onChange={this.handleUpdate}
+                  className="sale__duration"
+                >
+                  <option>Minute(s)</option>
+                  <option>Hour(s)</option>
+                  <option>Day(s)</option>
+                  <option>Week(s)</option>
+                </Input>
               </Col>
             </Row>
-            <Row className="align-items-center">
-              <Col>
+
+            <Row className="justify-content-center">
+              <Col md="10">
                 <FormGroup check>
                   <Label check>
                     <Input
@@ -277,37 +283,45 @@ class CreateSale extends Component {
                       checked={isAuction}
                       onChange={this.onCheckBoxChanged}
                     />
-                    {' '}
-                      This sale is an auction
+                    <p className="mb-0">
+                      <small>
+                        {' '}
+                        This sale is an auction
+                      </small>
+                    </p>
                   </Label>
                 </FormGroup>
               </Col>
             </Row>
-            <Row className="pt-3">
-              <Col>
-                <small className="text-muted">
-                  Note: Before creating a sale, please grant us the right to manipulate your certificate.
+
+            <Row className="pb-3 justify-content-center">
+              <Col md="10">
+                <p className="text-light tiny">
+                  Note: Before creating a sale,
                   {' '}
-                </small>
-                <Button color="link" onClick={this.approve} size="sm">
-                  {approvalButtonText}
+                  please grant us the right to manipulate your certificate.
+                  {' '}
+                </p>
+              </Col>
+            </Row>
+
+            <Row className="align-items-center">
+              <Col className="text-right">
+                <Button color="secondary" onClick={toggle}>
+                  Close
+                </Button>
+                {' '}
+                <Button
+                  color="primary"
+                  onClick={this.createSale}
+                  disabled={txState !== 'null' && true}
+                >
+                  {buttonText}
                 </Button>
               </Col>
             </Row>
+
           </ModalBody>
-          <ModalFooter>
-            <Button color="secondary" onClick={toggle}>
-              Close
-            </Button>
-            {' '}
-            <Button
-              color="primary"
-              onClick={this.createSale}
-              disabled={txState !== 'null' && true}
-            >
-              {buttonText}
-            </Button>
-          </ModalFooter>
         </Modal>
       </div>
     );
