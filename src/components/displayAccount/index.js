@@ -12,6 +12,8 @@ import {
 
 import TokenContract from '../../common/contracts/tokenContract';
 
+import Herc from '../../common/img/herc.png';
+
 class DisplayAccount extends Component {
   constructor(props) {
     super(props);
@@ -95,47 +97,56 @@ class DisplayAccount extends Component {
 
     return (
       <div>
-        <p className="h5 mb-3">
-          Your wallet
-        </p>
-        <Card className="shadow-sm">
-          <CardBody>
-            <Row className="mb-3">
-              <Col className="text-center">
-                <p className="mb-0">
-                  Your balance
-                </p>
-                <h3 className="mb-0">
-                  {Web3.utils.fromWei(balance.toString())}
-                </h3>
-                <p className="mb-0 font-weight-bold">
-                  HERC
-                </p>
+        <Row className="justify-content-center account__background py-2">
+          <Col>
+            <Row className="justify-content-center align-item-center mb-1">
+              <Col md="7" className="text-center account__secondary-background py-2">
+                <h5 className="text-light mb-3">Your balance</h5>
+                <Row className="justify-content-center">
+                  <Col className="text-right">
+                    <h3 className="account__balance">
+                      {Web3.utils.fromWei(balance.toString())}
+                    </h3>
+                    <p className="mb-0 text-white">
+                      HERC
+                    </p>
+                  </Col>
+                  <Col className="text-left">
+                    <img src={Herc} alt="Herc" />
+                  </Col>
+                </Row>
               </Col>
             </Row>
-            <Row className="mb-3">
-              <Col className="text-center">
-                <p className="mb-0">
-                  Your address
-                </p>
-                <Input value={address} className="address-input" readOnly />
+            <Row className="justify-content-center align-item-center">
+              <Col md="4" className="py-2">
+                <Row className="mb-1">
+                  <Col>
+                    <p className="text-white mb-0">
+                      Your address
+                    </p>
+                  </Col>
+                </Row>
+                <Row className="mb-2">
+                  <Col>
+                    <Input value={address} className="account__address" readOnly />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className="text-center">
+                    <Button
+                      color="primary"
+                      size="sm"
+                      onClick={this.claimFreeTokens}
+                      disabled={txState !== 'null' && true}
+                    >
+                      {buttonText}
+                    </Button>
+                  </Col>
+                </Row>
               </Col>
             </Row>
-            <Row>
-              <Col>
-                <Button
-                  color="primary"
-                  size="sm"
-                  onClick={this.claimFreeTokens}
-                  disabled={txState !== 'null' && true}
-                  block
-                >
-                  {buttonText}
-                </Button>
-              </Col>
-            </Row>
-          </CardBody>
-        </Card>
+          </Col>
+        </Row>
       </div>
     );
   }

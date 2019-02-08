@@ -29,15 +29,9 @@ class Dashboard extends Component {
 
     return (
       <div>
-        <Container>
-          <Row className="py-4 justify-content-center">
-            <Col xs="12" sm="8" lg="8">
-              <GetUserCertificates address={address} />
-            </Col>
-            <Col xs="12" sm="4" lg="4">
-              <DisplayAccount address={address} />
-            </Col>
-          </Row>
+        <Container fluid>
+          <DisplayAccount address={address} />
+          <GetUserCertificates address={address} />
         </Container>
       </div>
     );

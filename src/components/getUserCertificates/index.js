@@ -87,21 +87,18 @@ class GetUserCertificates extends Component {
 
     return (
       <div>
-        <Row>
-          <Col>
+        <Row className="justify-content-center pt-4">
+          <Col className="text-center">
             <p className="h5 mb-3">
               {`You have ${certificates.length} certificates`}
             </p>
           </Col>
-          <Col className="text-right">
-            <NavLink exact to="/new" className="nav-link" activeClassName="active">
-              New certificate
-            </NavLink>
+        </Row>
+        <Row>
+          <Col>
+            {this.displayCertificates()}
           </Col>
         </Row>
-        <CardDeck>
-          {this.displayCertificates()}
-        </CardDeck>
       </div>
     );
   }

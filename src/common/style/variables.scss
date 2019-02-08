@@ -1,23 +1,45 @@
+/* Our colors */
+$HERC_black: #000000;
+$HERC_white: #ffffff;
+$HERC_blue: #091140;
+$HERC_lightBlue: #8e94af;
+$HERC_light: #f1f3fc;
+$HERC_yellow: #f4c736;
+$HERC_light: #f5f7fd;
+$HERC_green: #87d22e;
+$HERC_red: #ff3333;
+
 /* Bootstrap colors */
-$primary: #3147FF;
+$primary: $HERC_yellow;
+$light: $HERC_lightBlue;
 
-/* Custom colors */
-$C_dark: #040404;
-$C_lightGray: #F4F8FB;
-$C_darkGray: #BABABA;
+/* Body */
+$body-color: $HERC_black;
+$body-bg: $HERC_white;
 
-/* Custom theme */
-$body-color: $C_dark;
-$body-bg: $C_lightGray;
-$gray-800: $C_dark;
+/* Navbar */
+$navbar-dark-color: $HERC_white;
+$navbar-dark-active-color: $HERC_yellow;
+$navbar-dark-hover-color: $HERC_yellow;
+$navbar-padding-y: 2.25rem;
+$navbar-padding-x: 6rem;
+$navbar-nav-link-padding-x: 1.75rem;
 
-$input-placeholder-color: $C_darkGray;
+/* Inputs */
+$input-bg: $HERC_light;
+$input-disabled-bg: $HERC_light;
 
-$input-color: $C_dark;
 
+
+/* TODO: Remap this var */
+$gray-800: $HERC_blue;
+
+/* To be deleted */
+/*
 $enable-shadows: true;
 
 $card-border-width: 0;
 $card-cap-bg: white;
 
 $label-margin-bottom: .25rem;
+*/

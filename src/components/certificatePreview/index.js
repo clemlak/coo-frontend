@@ -9,10 +9,9 @@ import {
   Row,
   Col,
 } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 
 import CooContract from '../../common/contracts/cooContract';
+import CertificateIcon from '../../common/img/certificate.png';
 
 class CertificatePreview extends Component {
   constructor(props) {
@@ -72,10 +71,7 @@ class CertificatePreview extends Component {
   render = () => {
     const {
       certificateId,
-      assetId,
       name,
-      label,
-      price,
       timestamp,
     } = this.state;
 
@@ -84,31 +80,25 @@ class CertificatePreview extends Component {
 
     return (
       <div>
-        <Card className="shadow-sm">
-          <CardBody>
-            <Row className="align-items-top py-3">
-              <Col>
-                <div className="certificate-logo-placeholder rounded align-items-center" />
-              </Col>
-            </Row>
-            <Row>
-              <Col md="9">
-                <p className="font-weight-bold mb-0">
-                  {name}
-                  <br />
-                  <small>
-                    {`Added on ${addedOn.toLocaleDateString('en-US', options)}`}
-                  </small>
-                </p>
-              </Col>
-              <Col md="3" className="text-right">
-                <NavLink exact to={`/certificate/${certificateId}`} className="nav-link">
-                  <FontAwesomeIcon icon={faEllipsisH} />
-                </NavLink>
-              </Col>
-            </Row>
-          </CardBody>
-        </Card>
+        <Row>
+          <Col className="text-center">
+            <NavLink exact to={`/certificate/${certificateId}`} className="nav-link">
+              <img src={CertificateIcon} alt="Certificate icon" />
+            </NavLink>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="text-center">
+            <p className="font-weight-bold mb-0">
+              {name}
+            </p>
+            <p className="text-highlight">
+              <small>
+                {`Added on ${addedOn.toLocaleDateString('en-US', options)}`}
+              </small>
+            </p>
+          </Col>
+        </Row>
       </div>
     );
   }

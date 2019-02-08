@@ -1,26 +1,34 @@
 @import './variables.scss';
-@import '../fonts/InterUI/inter-ui.css';
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 @import '../../../node_modules/bootstrap/scss/bootstrap';
 
 body {
-  font-family: 'Inter UI';
+  font-family: 'Montserrat', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-weight: 800;
+.account__background {
+  background-color: $HERC_blue;
 }
 
-.address-input {
+.account__secondary-background {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.account__balance {
+  font-weight: 700;
+  font-size: 3rem;
+  color: $HERC_white;
+  margin-bottom: 0;
+}
+
+.text-light {
+  color: $HERC_lightBlue;
+}
+
+.account__address {
   text-overflow: ellipsis;
 }
 
-.certificate-logo-placeholder {
-  width: 64px;
-  height: 64px;
-  background-color: $C_darkGray;
-  margin: 0 auto;
-}
-
-.navbar {
-  font-weight: 700;
+.text-highlight {
+  color: $HERC_yellow;
 }
