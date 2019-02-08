@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Web3 from 'web3';
 import {
-  Card,
-  CardBody,
   Button,
   Input,
   Row,
@@ -128,7 +126,11 @@ class DisplayAccount extends Component {
                 </Row>
                 <Row className="mb-2">
                   <Col>
-                    <Input value={address} className="account__address" readOnly />
+                    <div className="account__address align-item-center">
+                      <p className="small mb-0 text-light">
+                        {address}
+                      </p>
+                    </div>
                   </Col>
                 </Row>
                 <Row>
