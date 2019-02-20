@@ -30,6 +30,10 @@ body {
   line-height: 40px;
 }
 
+.dashboard__certificate {
+  display: inline-block;
+}
+
 .text-light {
   color: $HERC_lightBlue;
 }
@@ -45,4 +49,9 @@ body {
 
 .tiny {
   font-size: 60%;
+}
+
+.warning__background {
+  background-color: $HERC_veryLight;
+  min-height: 1000px;
 }

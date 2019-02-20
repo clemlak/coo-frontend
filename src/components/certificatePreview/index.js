@@ -68,7 +68,7 @@ class CertificatePreview extends Component {
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
     return (
-      <div>
+      <div className="dashboard__certificate p-3">
         <Row>
           <Col className="text-center">
             <NavLink exact to={`/certificate/${certificateId}`} className="nav-link">

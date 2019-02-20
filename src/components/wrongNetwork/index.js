@@ -10,13 +10,13 @@ import {
 } from 'reactstrap';
 
 const WrongNetwork = () => (
-  <div>
+  <div className="warning__background">
     <Container fluid>
       <Row className="py-4 justify-content-center">
-        <Col xs="8" sm="6" md="4" lg="4">
+        <Col xs="8" sm="8" md="8" lg="4">
           <Card className="shadow-sm">
             <CardBody>
-              <CardTitle className="text-center">
+              <CardTitle className="font-weight-bold">
                 Please change your network to Ropsten
               </CardTitle>
               <CardText>

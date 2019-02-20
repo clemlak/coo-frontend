@@ -101,7 +101,7 @@ class DisplayAccount extends Component {
               <Col md="7" className="text-center account__secondary-background py-2">
                 <h5 className="text-light mb-3">Your balance</h5>
                 <Row className="justify-content-center">
-                  <Col className="text-right">
+                  <Col md="3" className="text-right">
                     <h3 className="account__balance">
                       {Web3.utils.fromWei(balance.toString())}
                     </h3>
@@ -109,7 +109,7 @@ class DisplayAccount extends Component {
                       HERC
                     </p>
                   </Col>
-                  <Col className="text-left">
+                  <Col md="1" className="text-left">
                     <img src={Herc} alt="Herc" />
                   </Col>
                 </Row>

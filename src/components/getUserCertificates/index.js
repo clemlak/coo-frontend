@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
 
 import {
   Row,
   Col,
-  CardDeck,
 } from 'reactstrap';
 
 import CooContract from '../../common/contracts/cooContract';
@@ -70,9 +68,9 @@ class GetUserCertificates extends Component {
     for (let i = 0; i < certificates.length; i += 1) {
       cards.push(
         <CertificatePreview
-          key={i}
           address={address}
           certificateId={certificates[i]}
+          key={i}
         />,
       );
     }
@@ -94,8 +92,8 @@ class GetUserCertificates extends Component {
             </p>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row className="justify-content-center">
+          <Col className="text-center">
             {this.displayCertificates()}
           </Col>
         </Row>
