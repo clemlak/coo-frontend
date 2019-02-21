@@ -12,7 +12,7 @@ class CheckProvider extends Component {
   constructor(props) {
     super(props);
 
-    this.networkId = 3;
+    this.networkId = 15;
 
     this.state = {
       isMetaMaskInstalled: false,
