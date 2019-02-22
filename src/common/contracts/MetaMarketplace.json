@@ -19766,15 +19766,15 @@
     "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
   },
   "networks": {
-    "15": {
+    "3": {
       "events": {},
       "links": {},
-      "address": "0x826536b8b2a59382406FD032FBA843eA8e59006A",
-      "transactionHash": "0x5d52d6c5c156853da43696f7f97cf980952a655bd14fa96bb7e88b83ce7a2188"
+      "address": "0xd51f2Fab6e3326aEBf2a2f90aD433677a85353c2",
+      "transactionHash": "0x30d152bf2eaffe83dc158335df8a12087ea56c6d3a83c471b16fb63294c22bfc"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2019-02-20T16:32:05.503Z",
+  "updatedAt": "2019-02-21T08:38:48.820Z",
   "devdoc": {
     "details": "This contract handles the meta transactions for our marketplace",
     "methods": {

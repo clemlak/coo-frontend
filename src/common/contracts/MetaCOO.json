@@ -14556,15 +14556,15 @@
     "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
   },
   "networks": {
-    "15": {
+    "3": {
       "events": {},
       "links": {},
-      "address": "0xf177667c6658eeFF461398D4728b1B1678233142",
-      "transactionHash": "0xfcf3626d0e5a29733cf70e60da5e21910533e60479a50bd4d6a58c782ebc698d"
+      "address": "0x55f796e324783dF4f042D820684Fb1D15F076CC5",
+      "transactionHash": "0x6e3f7478c8ae6bed8de0857c638eb2c756d04d23b73b2d5a4c38fe60969fe45c"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2019-02-20T16:32:05.488Z",
+  "updatedAt": "2019-02-21T08:38:48.805Z",
   "devdoc": {
     "details": "This contract handles our meta-transactions",
     "methods": {
