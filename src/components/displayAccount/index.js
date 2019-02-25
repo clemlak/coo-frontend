@@ -23,7 +23,7 @@ class DisplayAccount extends Component {
     this.state = {
       address,
       balance: 0,
-      buttonText: 'Claim free tokens',
+      buttonText: 'Purchase HERC Tokens',
       txState: 'null',
     };
   }

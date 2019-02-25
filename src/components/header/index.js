@@ -38,18 +38,13 @@ class Header extends Component {
     return (
       <div>
         <Navbar color="dark" dark expand="md">
-          <NavbarBrand href="/">COO</NavbarBrand>
+          <NavbarBrand href="/">Hercules Supply Chain CoA</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink exact to="/" className="nav-link" activeClassName="active">
-                  Dashboard
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink exact to="/marketplace" className="nav-link" activeClassName="active">
-                  Marketplace
+                  My Certificates
                 </NavLink>
               </NavItem>
               <NavItem>

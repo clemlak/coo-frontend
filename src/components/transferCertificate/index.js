@@ -112,7 +112,7 @@ class TransferCertificate extends Component {
             <Row className="pb-3">
               <Col>
                 <p>
-                  Please input the address of the recipient.
+                  Please input the HERC address of the recipient.
                 </p>
               </Col>
             </Row>
