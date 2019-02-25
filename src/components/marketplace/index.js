@@ -23,16 +23,12 @@ class Marketplace extends Component {
   }
 
   render = () => {
-    const {
-      address,
-    } = this.state;
 
     return (
       <div>
         <Container>
           <Row className="py-4 justify-content-center">
             <Col xs="12" sm="8" lg="8">
-
             </Col>
           </Row>
         </Container>

@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  ListGroup,
-  ListGroupItem,
   Button,
   Container,
   Row,
   Col,
-  Input,
 } from 'reactstrap';
 
 import CooContract from '../../common/contracts/cooContract';
 import CertificateIcon from '../../common/img/certificate.png';
 
 import TransferCertificate from '../transferCertificate';
-import AddData from '../addData';
+import EditData from '../editData';
 import CreateSale from '../createSale';
 
 class DisplayCertificate extends Component {
@@ -40,14 +37,14 @@ class DisplayCertificate extends Component {
       timestamp: '',
       factomEntryHash: '',
       anotherEncryptionKey: '',
-      data: [],
+      data: '',
       toggleTransferModal: false,
-      toggleAddDataModal: false,
+      toggleEditDataModal: false,
       toggleCreateSaleModal: false,
     };
 
     this.toggleTransferModal = this.toggleTransferModal.bind(this);
-    this.toggleAddDataModal = this.toggleAddDataModal.bind(this);
+    this.toggleEditDataModal = this.toggleEditDataModal.bind(this);
     this.toggleCreateSaleModal = this.toggleCreateSaleModal.bind(this);
   }
 
@@ -65,13 +62,13 @@ class DisplayCertificate extends Component {
     });
   }
 
-  toggleAddDataModal = () => {
+  toggleEditDataModal = () => {
     const {
-      toggleAddDataModal,
+      toggleEditDataModal,
     } = this.state;
 
     this.setState({
-      toggleAddDataModal: !toggleAddDataModal,
+      toggleEditDataModal: !toggleEditDataModal,
     });
   }
 
@@ -103,6 +100,7 @@ class DisplayCertificate extends Component {
           timestamp,
           factomEntryHash,
           anotherEncryptionKey,
+          data,
         } = certificate;
 
         this.setState({
@@ -113,14 +111,6 @@ class DisplayCertificate extends Component {
           timestamp,
           factomEntryHash,
           anotherEncryptionKey,
-        });
-
-        return CooContract.methods.getCertificateData(certificateId).call({
-          from: address,
-        });
-      })
-      .then((data) => {
-        this.setState({
           data,
         });
       })
@@ -134,46 +124,24 @@ class DisplayCertificate extends Component {
       data,
     } = this.state;
 
-    const datalist = [];
-
-    if (data.length > 0) {
-      for (let i = 0; i < data.length; i += 1) {
-        datalist.push(
-          <ListGroupItem key={i}>
-            {data[i]}
-          </ListGroupItem>,
-        );
-      }
-
+    if (data === '') {
       return (
-        <ListGroup>
-          {datalist}
-        </ListGroup>
+        <p className="mb-0 text-center text-muted small">
+          This certificate does not have any data yet.
+        </p>
       );
     }
-
-    return (
-      <p className="mb-0">
-        This certificate does not have any data yet.
-      </p>
-    );
   }
 
   render = () => {
     const {
       address,
       certificateId,
-      assetId,
       name,
-      label,
-      price,
       timestamp,
-      factomEntryHash,
-      anotherEncryptionKey,
-      data,
       toggleTransferModal,
-      toggleAddDataModal,
       toggleCreateSaleModal,
+      toggleEditDataModal,
     } = this.state;
 
     const addedOn = new Date(timestamp * 1000);
@@ -192,6 +160,12 @@ class DisplayCertificate extends Component {
           certificateId={certificateId}
           isOpen={toggleCreateSaleModal}
           toggle={this.toggleCreateSaleModal}
+        />
+        <EditData
+          address={address}
+          certificateId={certificateId}
+          isOpen={toggleEditDataModal}
+          toggle={this.toggleEditDataModal}
         />
         <Container fluid>
 
@@ -233,7 +207,7 @@ class DisplayCertificate extends Component {
                 Transfer
               </Button>
               {' '}
-              <Button color="danger" onClick={this.toggleCreateSaleModal}>
+              <Button color="danger" onClick={this.toggleCreateSaleModal} disabled>
                 Sell
               </Button>
             </Col>
@@ -241,7 +215,7 @@ class DisplayCertificate extends Component {
 
           <Row className="justify-content-center pb-2">
             <Col md="6">
-              <Input type="textarea" rows="6" />
+              {this.displayData()}
             </Col>
           </Row>
 
@@ -250,6 +224,7 @@ class DisplayCertificate extends Component {
               <Button
                 color="primary"
                 size="sm"
+                onClick={this.toggleEditDataModal}
               >
                 Edit data
               </Button>

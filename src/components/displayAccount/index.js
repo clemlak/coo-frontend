@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Web3 from 'web3';
 import {
   Button,
-  Input,
   Row,
   Col,
 } from 'reactstrap';

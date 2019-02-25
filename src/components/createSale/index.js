@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import Web3 from 'web3';
 import {
   Modal,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   FormGroup,
   Label,
@@ -12,8 +10,6 @@ import {
   Button,
   Row,
   Col,
-  InputGroup,
-  InputGroupAddon,
 } from 'reactstrap';
 
 import MarketplaceContract from '../../common/contracts/marketplaceContract';
@@ -193,7 +189,6 @@ class CreateSale extends Component {
       deadline,
       isAuction,
       deadlineUnit,
-      approvalButtonText,
     } = this.state;
 
     const {
