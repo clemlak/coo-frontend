@@ -4,10 +4,6 @@ import {
   Container,
   Row,
   Col,
-  Card,
-  CardBody,
-  CardText,
-  CardFooter,
   Button,
   Form,
   FormGroup,
@@ -73,6 +69,7 @@ class NewCertificate extends Component {
       timestamp: Math.round(Date.now() / 1000),
       factomEntryHash,
       anotherEncryptionKey,
+      data: '',
     };
 
     this.setState({
