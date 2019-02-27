@@ -185,18 +185,23 @@ class DisplayCertificate extends Component {
 
     for (let i = 0; i < content.length; i += 1) {
       previews.push(
-        <Row key={i}>
-          <Col>
+        <Col key={i}>
+          <a href={`https://ipfs.infura.io/ipfs/${content[i]}`}>
             <img
               src={`https://ipfs.infura.io/ipfs/${content[i]}`}
               alt={content[i]}
+              className="img-fluid"
             />
-          </Col>
-        </Row>,
+          </a>
+        </Col>,
       );
     }
 
-    return previews;
+    return (
+      <Row className="py-2">
+        {previews}
+      </Row>
+    );
   }
 
   render = () => {

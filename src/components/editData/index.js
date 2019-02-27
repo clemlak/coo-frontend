@@ -265,6 +265,7 @@ class EditData extends Component {
                   type="file"
                   name="fileInput"
                   id="fileInput"
+                  className="form-control-file upload__button"
                   onChange={this.captureFile}
                 />
               </Col>
