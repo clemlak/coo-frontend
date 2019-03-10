@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import IPFS from 'ipfs-api';
 import {
   Modal,
   ModalBody,
@@ -8,6 +7,8 @@ import {
   Col,
   Button,
   Input,
+  FormGroup,
+  Label,
 } from 'reactstrap';
 
 import CooContract from '../../common/contracts/cooContract';
@@ -15,12 +16,6 @@ import CooContract from '../../common/contracts/cooContract';
 class EditData extends Component {
   constructor(props) {
     super(props);
-
-    this.ipfs = new IPFS({
-      host: 'ipfs.infura.io',
-      port: 5001,
-      protocol: 'https',
-    });
 
     const {
       address,
@@ -34,20 +29,12 @@ class EditData extends Component {
       certificateId,
       isOpen,
       data,
-      updatedContent: [],
-      isContentLoading: false,
       buttonText: 'Update data',
       isButtonDisabled: false,
     };
   }
 
-  componentDidMount = () => {
-    const {
-      data,
-    } = this.state;
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = (prevProps) => {
     const {
       isOpen,
       data,
@@ -64,173 +51,52 @@ class EditData extends Component {
         data,
       });
     }
-
-    if (data !== prevState.data) {
-      this.loadContent();
-    }
   }
 
-  loadContent = () => {
-    const {
-      data,
-    } = this.state;
-
-    if (data !== '') {
-      const content = [];
-
-      this.ipfs.get(data, (err, files) => {
-        files.forEach((file) => {
-          const body = JSON.parse(file.content.toString('utf8'));
-
-          for (let i = 0; i < body.length; i += 1) {
-            content.push(body[i]);
-          }
-
-          this.setState({
-            updatedContent: content,
-          });
-        });
-      });
-    }
-  }
-
-  displayContent = () => {
-    const {
-      updatedContent,
-      isContentLoading,
-    } = this.state;
-
-    if (isContentLoading && updatedContent.length === 0) {
-      return (
-        <div className="text-center">
-          <p className="mb-1 text-center text-muted small">
-            Content is loading...
-          </p>
-        </div>
-      );
-    }
-
-    if (!isContentLoading && updatedContent.length === 0) {
-      return (
-        <div className="text-center">
-          <p className="mb-1 text-center text-muted small">
-            This certificate does not have any data yet.
-          </p>
-        </div>
-      );
-    }
-
-    const previews = [];
-
-    for (let i = 0; i < updatedContent.length; i += 1) {
-      previews.push(
-        <Row key={i} className="py-2">
-          <Col className="text-center">
-            <img
-              src={`https://ipfs.infura.io/ipfs/${updatedContent[i]}`}
-              alt={updatedContent[i]}
-              className="mb-1"
-            />
-            <br />
-            <Button onClick={() => this.deleteData(i)}>
-              Delete
-            </Button>
-          </Col>
-        </Row>,
-      );
-    }
-
-    return previews;
-  }
-
-  captureFile = (e) => {
-    const {
-      updatedContent,
-    } = this.state;
-
-    e.stopPropagation();
-    e.preventDefault();
-
-    if (e.target.files.length > 0) {
-      this.setState({
-        isContentLoading: true,
-      });
-
-      const file = e.target.files[0];
-
-      const reader = new window.FileReader();
-
-      reader.onload = (r) => {
-        const buffer = Buffer.from(r.target.result);
-
-        const content = this.ipfs.types.Buffer.from(buffer);
-
-        this.ipfs.files.add(content)
-          .then((hash) => {
-            updatedContent.push(hash[0].hash);
-
-            this.setState({
-              updatedContent,
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      };
-
-      reader.readAsArrayBuffer(file);
-    }
-  }
-
-  deleteData = (i) => {
-    let {
-      updatedContent,
-    } = this.state;
-
-    updatedContent = this.remove(updatedContent, updatedContent[i]);
-
+  onChange = (e) => {
     this.setState({
-      updatedContent,
+      [e.target.name]: e.target.value,
     });
   }
-
-  remove = (array, element) => array.filter(el => el !== element)
 
   updateData = () => {
     const {
-      updatedContent,
       certificateId,
       address,
+      data,
     } = this.state;
 
     this.setState({
-      buttonText: 'Updating data...',
+      buttonText: 'Waiting approval in MetaMask...',
       isButtonDisabled: true,
     });
 
-    const content = this.ipfs.types.Buffer.from(JSON.stringify(updatedContent));
-
-    this.ipfs.files.add(content)
-      .then((res) => {
-        return CooContract.methods.updateCertificateData(
-          certificateId,
-          res[0].hash,
-        ).send({
-          from: address,
-        });
-      })
-      .then((tx) => {
+    CooContract.methods.updateCertificateData(
+      certificateId,
+      data,
+    ).send({
+      from: address,
+    })
+      .on('transactionHash', () => {
         this.setState({
-          buttonText: 'Data updated!',
+          buttonText: 'Transaction is pending...',
         });
       })
-      .catch((err) => {
-        console.log(err);
+      .on('confirmation', () => {
+        this.setState({
+          buttonText: 'Transaction is confirmed!',
+        });
+      })
+      .on('error', (err) => {
+        this.setState({
+          buttonText: err.message,
+        });
       });
   }
 
   render = () => {
     const {
+      data,
       isOpen,
       buttonText,
       isButtonDisabled,
@@ -253,21 +119,22 @@ class EditData extends Component {
               </Col>
             </Row>
 
-            <Row className="pb-3">
+            <Row className="pb-3 justify-content-around">
               <Col>
-                {this.displayContent()}
-              </Col>
-            </Row>
-
-            <Row className="pb-3">
-              <Col className="text-center">
-                <Input
-                  type="file"
-                  name="fileInput"
-                  id="fileInput"
-                  className="form-control-file upload__button"
-                  onChange={this.captureFile}
-                />
+                <FormGroup>
+                  <Label for="data">
+                    <small className="font-weight-bold">
+                      Enter your new data here
+                    </small>
+                  </Label>
+                  <Input
+                    type="textarea"
+                    name="data"
+                    id="data"
+                    onChange={this.onChange}
+                    value={data}
+                  />
+                </FormGroup>
               </Col>
             </Row>
 

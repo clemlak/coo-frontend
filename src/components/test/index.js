@@ -11,10 +11,47 @@ class Test extends Component {
       address,
     } = this.props;
 
-    this.relayerlib = new Relayerlib('http://localhost:3000', address);
+    this.state = {
+      address,
+    };
+
+    this.relayerlib = new Relayerlib('http://localhost:3002', address, '');
   }
 
+  createCertificate = () => {
+    const {
+      address,
+    } = this.state;
 
+    const testCertificate = {
+      assetId: 0,
+      name: 'iPhone',
+      label: 'Label',
+      price: 200,
+      timestamp: Math.round(Date.now() / 1000),
+      factomEntryHash: 'FactomEntryHash',
+      anotherEncryptionKey: 'AnotherEncryptionKey',
+      data: 'randomDataHash',
+    };
+
+    this.relayerlib.sendMetaTx(address, 'MetaCOO', 'metaCreateCertificate', testCertificate)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  render = () => {
+    return (
+      <div>
+        <button onClick={this.createCertificate}>
+          Create certificate
+        </button>
+      </div>
+    );
+  }
 }
 
 Test.propTypes = {

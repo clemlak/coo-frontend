@@ -2,8 +2,9 @@ const axios = require('axios');
 const Web3 = require('web3');
 
 class Relayerlib {
-  constructor(relayerGateway, privateKey) {
+  constructor(relayerGateway, address, privateKey) {
     this.relayerGateway = relayerGateway;
+    this.address = address;
     this.privateKey = privateKey;
     this.web3 = new Web3('http://127.0.0.1:8545');
   }
@@ -23,7 +24,7 @@ class Relayerlib {
 
         const {
           signature,
-        } = this.web3.eth.accounts.sign(hash, this.privateKey);
+        } = this.web3.eth.personal.sign(hash, this.address);
 
         const data = {
           address,
@@ -73,4 +74,4 @@ class Relayerlib {
   }
 }
 
-module.exports = Relayerlib;
+export default Relayerlib;

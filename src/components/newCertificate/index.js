@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import IPFS from 'ipfs-api';
 import {
   Container,
   Row,
@@ -17,6 +18,12 @@ class NewCertificate extends Component {
   constructor(props) {
     super(props);
 
+    this.ipfs = new IPFS({
+      host: 'ipfs.infura.io',
+      port: 5001,
+      protocol: 'https',
+    });
+
     const {
       address,
     } = this.props;
@@ -31,22 +38,48 @@ class NewCertificate extends Component {
       anotherEncryptionKey: '',
       buttonText: 'Create certificate',
       txState: 'null',
+      data: '',
+      uri: '',
+      isPicLoading: false,
     };
   }
 
   handleUpdate = (e) => {
-    if (e.target.name === 'assetIdInput') {
-      this.setState({ assetId: e.target.value });
-    } else if (e.target.name === 'nameInput') {
-      this.setState({ name: e.target.value });
-    } else if (e.target.name === 'labelInput') {
-      this.setState({ label: e.target.value });
-    } else if (e.target.name === 'priceInput') {
-      this.setState({ price: e.target.value });
-    } else if (e.target.name === 'factomEntryHashInput') {
-      this.setState({ factomEntryHash: e.target.value });
-    } else if (e.target.name === 'anotherEncryptionKeyInput') {
-      this.setState({ anotherEncryptionKey: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  captureFile = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (e.target.files.length === 1) {
+      this.setState({
+        isPicLoading: true,
+      });
+
+      const file = e.target.files[0];
+
+      const reader = new window.FileReader();
+
+      reader.onload = (r) => {
+        const buffer = Buffer.from(r.target.result);
+        const content = this.ipfs.types.Buffer.from(buffer);
+
+        this.ipfs.files.add(content)
+          .then((res) => {
+            this.setState({
+              isPicLoading: false,
+              uri: `https://ipfs.infura.io/ipfs/${res[0].hash}`,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+
+      reader.readAsArrayBuffer(file);
     }
   }
 
@@ -58,6 +91,8 @@ class NewCertificate extends Component {
       label,
       price,
       factomEntryHash,
+      data,
+      uri,
       anotherEncryptionKey,
     } = this.state;
 
@@ -69,7 +104,7 @@ class NewCertificate extends Component {
       timestamp: Math.round(Date.now() / 1000),
       factomEntryHash,
       anotherEncryptionKey,
-      data: '',
+      data,
     };
 
     this.setState({
@@ -77,7 +112,10 @@ class NewCertificate extends Component {
       txState: 'waitingApproval',
     });
 
-    CooContract.methods.createCertificate(certificate).send({
+    CooContract.methods.createCertificate(
+      certificate,
+      uri,
+    ).send({
       from: address,
     })
       .on('transactionHash', () => {
@@ -100,6 +138,62 @@ class NewCertificate extends Component {
       });
   }
 
+  displayPicture = () => {
+    const {
+      uri,
+      isPicLoading,
+    } = this.state;
+
+    if (uri === '' && !isPicLoading) {
+      return (
+        <FormGroup>
+          <Label for="Picture">
+            <small className="font-weight-bold">Picture</small>
+          </Label>
+          <Input
+            type="file"
+            name="fileInput"
+            id="fileInput"
+            onChange={this.captureFile}
+            required
+          />
+        </FormGroup>
+      );
+    }
+
+    if (uri === '' && isPicLoading) {
+      return (
+        <p className="small text-muted text-center">
+          Picture is loading...
+        </p>
+      );
+    }
+
+    if (uri !== '' && !isPicLoading) {
+      return (
+        <div>
+          <Row>
+            <Col>
+              <p className="small font-weight-bold">Picture</p>
+            </Col>
+          </Row>
+          <Row className="pb-2">
+            <Col className="text-center">
+              <img className="img-fluid" src={uri} alt={uri} />
+            </Col>
+          </Row>
+          <Row>
+            <Col className="text-center">
+              <Button size="sm" color="secondary" onClick={() => this.setState({ uri: '' })}>
+                Delete
+              </Button>
+            </Col>
+          </Row>
+        </div>
+      );
+    }
+  }
+
   render = () => {
     const {
       assetId,
@@ -108,6 +202,7 @@ class NewCertificate extends Component {
       price,
       factomEntryHash,
       anotherEncryptionKey,
+      data,
       buttonText,
       txState,
     } = this.state;
@@ -122,29 +217,31 @@ class NewCertificate extends Component {
                 <Row className="py-3 justify-content-around">
                   <Col md="5">
                     <FormGroup>
-                      <Label for="assetIdInput">
+                      <Label for="assetId">
                         <small className="font-weight-bold">Asset id</small>
                       </Label>
                       <Input
                         type="number"
-                        name="assetIdInput"
-                        id="assetIdInput"
+                        name="assetId"
+                        id="assetId"
                         onChange={this.handleUpdate}
                         value={assetId}
+                        required
                       />
                     </FormGroup>
                   </Col>
                   <Col md="5">
                     <FormGroup>
-                      <Label for="priceInput">
+                      <Label for="price">
                         <small className="font-weight-bold">Asset price</small>
                       </Label>
                       <Input
                         type="number"
-                        name="priceInput"
-                        id="priceInput"
+                        name="price"
+                        id="price"
                         onChange={this.handleUpdate}
                         value={price}
+                        required
                       />
                     </FormGroup>
                   </Col>
@@ -153,29 +250,31 @@ class NewCertificate extends Component {
                 <Row className="py-3 justify-content-around">
                   <Col md="5">
                     <FormGroup>
-                      <Label for="nameInput">
+                      <Label for="name">
                         <small className="font-weight-bold">Asset name</small>
                       </Label>
                       <Input
                         type="text"
-                        name="nameInput"
-                        id="nameInput"
+                        name="name"
+                        id="name"
                         onChange={this.handleUpdate}
                         value={name}
+                        required
                       />
                     </FormGroup>
                   </Col>
                   <Col md="5">
                     <FormGroup>
-                      <Label for="factomEntryHashInput">
+                      <Label for="factomEntryHash">
                         <small className="font-weight-bold">Asset Factom entry hash</small>
                       </Label>
                       <Input
                         type="text"
-                        name="factomEntryHashInput"
-                        id="factomEntryHashInput"
+                        name="factomEntryHash"
+                        id="factomEntryHash"
                         onChange={this.handleUpdate}
                         value={factomEntryHash}
+                        required
                       />
                     </FormGroup>
                   </Col>
@@ -184,31 +283,55 @@ class NewCertificate extends Component {
                 <Row className="py-3 justify-content-around">
                   <Col md="5">
                     <FormGroup>
-                      <Label for="labelInput">
+                      <Label for="label">
                         <small className="font-weight-bold">Asset label</small>
                       </Label>
                       <Input
                         type="text"
-                        name="labelInput"
-                        id="labelInput"
+                        name="label"
+                        id="label"
                         onChange={this.handleUpdate}
                         value={label}
+                        required
                       />
                     </FormGroup>
                   </Col>
                   <Col md="5">
                     <FormGroup>
-                      <Label for="anotherEncryptionKeyInput">
+                      <Label for="anotherEncryptionKey">
                         <small className="font-weight-bold">Asset another encryption key</small>
                       </Label>
                       <Input
                         type="text"
-                        name="anotherEncryptionKeyInput"
-                        id="anotherEncryptionKeyInput"
+                        name="anotherEncryptionKey"
+                        id="anotherEncryptionKey"
                         onChange={this.handleUpdate}
                         value={anotherEncryptionKey}
                       />
                     </FormGroup>
+                  </Col>
+                </Row>
+
+                <Row className="py-3 justify-content-around">
+                  <Col md="10">
+                    <FormGroup>
+                      <Label for="data">
+                        <small className="font-weight-bold">Data</small>
+                      </Label>
+                      <Input
+                        type="textarea"
+                        name="data"
+                        id="data"
+                        onChange={this.handleUpdate}
+                        value={data}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+
+                <Row className="py-3 justify-content-around">
+                  <Col md="10">
+                    {this.displayPicture()}
                   </Col>
                 </Row>
 
@@ -224,15 +347,7 @@ class NewCertificate extends Component {
                     </Button>
                   </Col>
                 </Row>
-                <Row className="py-1">
-                  <Col className="text-center">
-                    <p className="text-muted">
-                      <small>
-                        Note: More data can be added later.
-                      </small>
-                    </p>
-                  </Col>
-                </Row>
+
               </Form>
             </Col>
           </Row>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import IPFS from 'ipfs-api';
 import {
   Button,
   Container,
@@ -18,12 +17,6 @@ import CreateSale from '../createSale';
 class DisplayCertificate extends Component {
   constructor(props) {
     super(props);
-
-    this.ipfs = new IPFS({
-      host: 'ipfs.infura.io',
-      port: 5001,
-      protocol: 'https',
-    });
 
     const {
       match: {
@@ -45,10 +38,10 @@ class DisplayCertificate extends Component {
       factomEntryHash: '',
       anotherEncryptionKey: '',
       data: '',
+      uri: '',
       toggleTransferModal: false,
       toggleEditDataModal: false,
       toggleCreateSaleModal: false,
-      content: [],
     };
 
     this.toggleTransferModal = this.toggleTransferModal.bind(this);
@@ -58,16 +51,6 @@ class DisplayCertificate extends Component {
 
   componentDidMount = () => {
     this.getCertificate();
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    const {
-      data,
-    } = this.state;
-
-    if (data !== prevState.data) {
-      this.loadContent();
-    }
   }
 
   toggleTransferModal = () => {
@@ -131,40 +114,27 @@ class DisplayCertificate extends Component {
           anotherEncryptionKey,
           data,
         });
+
+        return CooContract.methods.tokenURI(certificateId).call({
+          from: address,
+        });
+      })
+      .then((uri) => {
+        this.setState({
+          uri,
+        });
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  loadContent = () => {
+  displayData = () => {
     const {
       data,
     } = this.state;
 
-    const content = [];
-
-    this.ipfs.get(data, (err, files) => {
-      files.forEach((file) => {
-        const body = JSON.parse(file.content.toString('utf8'));
-
-        for (let i = 0; i < body.length; i += 1) {
-          content.push(body[i]);
-        }
-
-        this.setState({
-          content,
-        });
-      });
-    });
-  }
-
-  displayContent = () => {
-    const {
-      content,
-    } = this.state;
-
-    if (content.length === 0) {
+    if (data === '') {
       return (
         <div className="text-center">
           <p className="text-muted small">
@@ -181,26 +151,8 @@ class DisplayCertificate extends Component {
       );
     }
 
-    const previews = [];
-
-    for (let i = 0; i < content.length; i += 1) {
-      previews.push(
-        <Col key={i}>
-          <a href={`https://ipfs.infura.io/ipfs/${content[i]}`}>
-            <img
-              src={`https://ipfs.infura.io/ipfs/${content[i]}`}
-              alt={content[i]}
-              className="img-fluid"
-            />
-          </a>
-        </Col>,
-      );
-    }
-
     return (
-      <Row className="py-2">
-        {previews}
-      </Row>
+      <p>{data}</p>
     );
   }
 
@@ -210,10 +162,16 @@ class DisplayCertificate extends Component {
       certificateId,
       name,
       timestamp,
+      label,
+      factomEntryHash,
+      anotherEncryptionKey,
       toggleTransferModal,
       toggleCreateSaleModal,
       toggleEditDataModal,
       data,
+      uri,
+      price,
+      assetId,
     } = this.state;
 
     const addedOn = new Date(timestamp * 1000);
@@ -261,7 +219,7 @@ class DisplayCertificate extends Component {
               <p className="font-weight-bold mb-0">
                 {name}
               </p>
-              <p className="text-highlight">
+              <p className="text-highlight mb-0">
                 <small>
                   {`Added on ${addedOn.toLocaleDateString('en-US', options)}`}
                 </small>
@@ -269,17 +227,71 @@ class DisplayCertificate extends Component {
             </Col>
           </Row>
 
+          <Row className="justify-content-center py-2 mb-1">
+            <Col md="6" className="text-center">
+              <Button color="success" onClick={this.toggleTransferModal}>
+                Transfer
+              </Button>
+            </Col>
+          </Row>
+
+          <Row className="justify-content-center py-2">
+            <Col className="text-center">
+              <a href={uri}>
+                <img
+                  src={uri}
+                  alt={uri}
+                  className="img-fluid"
+                />
+              </a>
+            </Col>
+          </Row>
+
+          <Row className="justify-content-center py-2">
+            <Col sm="3">
+              <p className="mb-0 small font-weight-bold">
+                Price
+              </p>
+              <p>
+                {price}
+              </p>
+            </Col>
+            <Col sm="3">
+              <p className="mb-0 small font-weight-bold">
+                Asset id
+              </p>
+              <p>
+                {assetId}
+              </p>
+            </Col>
+          </Row>
+
+          <Row className="justify-content-center py-2">
+            <Col sm="3">
+              <p className="mb-0 small font-weight-bold">
+                Label
+              </p>
+              <p>
+                {label}
+              </p>
+            </Col>
+            <Col sm="3">
+              <p className="mb-0 small font-weight-bold">
+                Factom entry
+              </p>
+              <p>
+                {factomEntryHash}
+              </p>
+            </Col>
+          </Row>
+
           <Row className="justify-content-center pt-2">
             <Col md="3">
-              <p>
+              <p className="mb-0 small font-weight-bold">
                 Your data
               </p>
             </Col>
             <Col md="3" className="text-right">
-              <Button color="success" onClick={this.toggleTransferModal}>
-                Transfer
-              </Button>
-              {' '}
               <Button
                 color="primary"
                 size="sm"
@@ -292,7 +304,7 @@ class DisplayCertificate extends Component {
 
           <Row className="justify-content-center pb-2">
             <Col md="6">
-              {this.displayContent()}
+              {this.displayData()}
             </Col>
           </Row>
 
